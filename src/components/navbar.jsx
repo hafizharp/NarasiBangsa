@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import routes from '../config/routes';
+import logo from '../assets/logo-narasi.png'; // Make sure to add your logo to assets folder
 
 const navItems = [
   { label: 'Nasional', href: routes.nasional },
@@ -20,16 +21,18 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-20"> {/* Increased height for navbar */}
           {/* Logo Section */}
           <div className="flex items-center">
             <Link 
               to={routes.home} 
               className="flex-shrink-0 group"
             >
-              <span className="text-2xl font-extrabold bg-gradient-to-r from-[#4A4A4A] to-gray-600 bg-clip-text text-transparent group-hover:to-gray-500 transition-all duration-300">
-                NARASI BANGSA
-              </span>
+              <img
+                src={logo}
+                alt="Narasi Bangsa"
+                className="h-40 w-auto py-2" // Changed to h-30 (120px) with vertical padding
+              />
             </Link>
           </div>
 

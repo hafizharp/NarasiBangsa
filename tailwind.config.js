@@ -70,6 +70,11 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
       },
+      height: {
+        '25': '6.25rem', // 100px
+        '30': '7.5rem',  // 120px
+        '35': '8.75rem'  // 140px
+      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },
