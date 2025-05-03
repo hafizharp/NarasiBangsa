@@ -6,7 +6,7 @@ const routes = {
   olahraga: '/olahraga',
   teknologi: '/teknologi',
   hiburan: '/hiburan',
-  gayaHidup: '/gaya-hidup',
+  gayaHidup: '/gaya-hidup', // Make sure this matches the route path
   otomotif: '/otomotif'
 };
 

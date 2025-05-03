@@ -10,6 +10,7 @@ import Teknologi from './pages/teknologi';
 import Hiburan from './pages/hiburan';
 import GayaHidup from './pages/gayahidup';
 import Otomotif from './pages/otomotif';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/hiburan" element={<Hiburan />} />
         <Route path="/gaya-hidup" element={<GayaHidup />} />
         <Route path="/otomotif" element={<Otomotif />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </MainLayout>
   );
