@@ -3,12 +3,35 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Filter, TrendingUp, ChevronDown } from 'lucide-react';
 
-const subcategories = [
+// Export subcategories so they can be imported elsewhere
+export const subcategoriesNasional = [
   { id: 'politik', name: 'Politik', color: 'bg-blue-500' },
   { id: 'hukum', name: 'Hukum & Kriminal', color: 'bg-red-500' },
   { id: 'peristiwa', name: 'Peristiwa', color: 'bg-green-500' },
   { id: 'pemilu', name: 'Pemilu 2024', color: 'bg-purple-500' },
   { id: 'pemerintahan', name: 'Pemerintahan', color: 'bg-orange-500' }
+];
+
+// Export recent news for navbar
+export const recentNasionalNews = [
+  {
+    id: 1,
+    slug: 'perkembangan-terkini-pemilu-2024',
+    title: 'Perkembangan Terkini Pemilu 2024',
+    image: 'https://source.unsplash.com/random/800x600?election',
+  },
+  {
+    id: 2,
+    slug: 'ruu-kejaksaan-polri',
+    title: 'RUU Kejaksaan dan Polri Bakal Dibahas Tahun Ini',
+    image: 'https://source.unsplash.com/random/800x600?parliament',
+  },
+  {
+    id: 3,
+    slug: 'kpk-tangkap-pejabat',
+    title: 'KPK Tangkap Pejabat Terkait Kasus Korupsi',
+    image: 'https://source.unsplash.com/random/800x600?corruption',
+  },
 ];
 
 const Nasional = () => {
@@ -52,40 +75,49 @@ const Nasional = () => {
     },
     {
       id: 4,
-      title: "Perkembangan Terkini Pemilu 2024",
-      excerpt: "Update hasil perhitungan suara dan dinamika politik terbaru...",
-      image: "https://source.unsplash.com/random/800x600?election",
-      date: "2024-04-21",
+      title: "Pemerintah Luncurkan Program Bantuan Pendidikan",
+      excerpt: "Program bantuan pendidikan baru ditargetkan untuk siswa dari keluarga prasejahtera...",
+      image: "https://source.unsplash.com/random/800x600?education",
+      date: "2024-04-18",
       readTime: "5 min",
-      category: "Politik"
+      category: "Pemerintahan"
     },
     {
       id: 5,
-      title: "Perkembangan Terkini Pemilu 2024",
-      excerpt: "Update hasil perhitungan suara dan dinamika politik terbaru...",
-      image: "https://source.unsplash.com/random/800x600?election",
-      date: "2024-04-21",
+      title: "Partai Politik Mulai Persiapkan Pilkada Serentak",
+      excerpt: "Sejumlah partai politik mulai mempersiapkan strategi menghadapi Pilkada serentak...",
+      image: "https://source.unsplash.com/random/800x600?politics",
+      date: "2024-04-17",
       readTime: "5 min",
       category: "Politik"
     },
     {
       id: 6,
-      title: "Perkembangan Terkini Pemilu 2024",
-      excerpt: "Update hasil perhitungan suara dan dinamika politik terbaru...",
-      image: "https://source.unsplash.com/random/800x600?election",
-      date: "2024-04-21",
-      readTime: "5 min",
-      category: "Politik"
+      title: "Polisi Ungkap Jaringan Penipuan Online Lintas Negara",
+      excerpt: "Kepolisian berhasil mengungkap jaringan penipuan online yang beroperasi di beberapa negara...",
+      image: "https://source.unsplash.com/random/800x600?cybercrime",
+      date: "2024-04-16",
+      readTime: "7 min",
+      category: "Hukum & Kriminal"
     },
     {
       id: 7,
-      title: "Perkembangan Terkini Pemilu 2024",
-      excerpt: "Update hasil perhitungan suara dan dinamika politik terbaru...",
-      image: "https://source.unsplash.com/random/800x600?election",
-      date: "2024-04-21",
-      readTime: "5 min",
-      category: "Politik"
-    }
+      title: "Bencana Banjir Landa Sejumlah Wilayah Indonesia",
+      excerpt: "Hujan deras menyebabkan banjir di beberapa wilayah, ribuan warga terdampak...",
+      image: "https://source.unsplash.com/random/800x600?flood",
+      date: "2024-04-15",
+      readTime: "4 min",
+      category: "Peristiwa"
+    },
+    {
+      id: 8,
+      title: "Kebijakan Baru Pemerintah Terkait Pendidikan",
+      excerpt: "Pemerintah mengumumkan kebijakan baru untuk meningkatkan kualitas pendidikan...",
+      image: "https://source.unsplash.com/random/800x600?education-policy",
+      date: "2024-04-14",
+      readTime: "6 min",
+      category: "Pendidikan"
+    },
   ];
 
   return (
@@ -100,15 +132,15 @@ const Nasional = () => {
           >
             <div className="flex items-center gap-3 mb-4">
               <span className={`w-3 h-3 rounded-full ${
-                subcategories.find(s => s.id === activeCategory)?.color
+                subcategoriesNasional.find(s => s.id === activeCategory)?.color
               }`} />
               <h2 className="text-xl font-bold">
-                {subcategories.find(s => s.id === activeCategory)?.name}
+                {subcategoriesNasional.find(s => s.id === activeCategory)?.name}
               </h2>
             </div>
             <p className="text-gray-600">
               Berita terkini seputar {
-                subcategories.find(s => s.id === activeCategory)?.name.toLowerCase()
+                subcategoriesNasional.find(s => s.id === activeCategory)?.name.toLowerCase()
               }
             </p>
           </motion.div>
@@ -166,46 +198,91 @@ const Nasional = () => {
         </div>
       </div>
 
+      {/* Filter Dropdown */}
+      <AnimatePresence>
+        {filterOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mb-6 overflow-hidden"
+          >
+            <div className="bg-white p-4 rounded-lg shadow-md">
+              <h3 className="font-medium mb-3">Filter berdasarkan kategori:</h3>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setActiveCategory('all')}
+                  className={`px-3 py-1.5 rounded-lg text-sm ${
+                    activeCategory === 'all'
+                      ? 'bg-[#4A4A4A] text-white'
+                      : 'bg-gray-100 hover:bg-gray-200'
+                  }`}
+                >
+                  Semua Kategori
+                </button>
+                {subcategoriesNasional.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={`px-3 py-1.5 rounded-lg text-sm flex items-center gap-2 ${
+                      activeCategory === cat.id
+                        ? 'bg-[#4A4A4A] text-white'
+                        : 'bg-gray-100 hover:bg-gray-200'
+                    }`}
+                  >
+                    <span className={`w-2 h-2 rounded-full ${cat.color}`} />
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* News Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {news.map((item) => (
-          <motion.article
-            key={item.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all"
-          >
-            <Link to={`/berita/${item.id}`} className="group">
-              <div className="aspect-[16/9] overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm font-medium text-[#4A4A4A] bg-gray-100 px-2 py-1 rounded">
-                    {item.category}
-                  </span>
-                  <div className="flex items-center gap-1 text-sm text-gray-500">
-                    <Clock className="w-4 h-4" />
-                    {item.readTime}
-                  </div>
+        {news
+          .filter(item => activeCategory === 'all' || 
+            item.category.toLowerCase() === subcategoriesNasional.find(s => s.id === activeCategory)?.name.toLowerCase())
+          .map((item) => (
+            <motion.article
+              key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all"
+            >
+              <Link to={`/berita/${item.id}`} className="group">
+                <div className="aspect-[16/9] overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
                 </div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-[#4A4A4A] line-clamp-2">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600 line-clamp-2">
-                  {item.excerpt}
-                </p>
-                <time className="block mt-4 text-sm text-gray-500">
-                  {item.date}
-                </time>
-              </div>
-            </Link>
-          </motion.article>
-        ))}
+                <div className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm font-medium text-[#4A4A4A] bg-gray-100 px-2 py-1 rounded">
+                      {item.category}
+                    </span>
+                    <div className="flex items-center gap-1 text-sm text-gray-500">
+                      <Clock className="w-4 h-4" />
+                      {item.readTime}
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-[#4A4A4A] line-clamp-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 line-clamp-2">
+                    {item.excerpt}
+                  </p>
+                  <time className="block mt-4 text-sm text-gray-500">
+                    {item.date}
+                  </time>
+                </div>
+              </Link>
+            </motion.article>
+          ))}
       </div>
 
       {/* Pagination */}
