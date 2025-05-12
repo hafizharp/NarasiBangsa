@@ -1,12 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Clock, Filter, TrendingUp } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Clock, Filter, TrendingUp, ChevronDown } from 'lucide-react';
+
+// Export subcategories so they can be imported elsewhere
+export const subcategoriesOlahraga = [
+  { id: 'sepak-bola', name: 'Sepak Bola', color: 'bg-green-500' },
+  { id: 'basket', name: 'Basket', color: 'bg-orange-500' },
+  { id: 'bulutangkis', name: 'Bulutangkis', color: 'bg-blue-500' },
+  { id: 'formula-1', name: 'Formula 1', color: 'bg-red-500' },
+  { id: 'moto-gp', name: 'Moto GP', color: 'bg-purple-500' }
+];
+
+// Export recent news for navbar
+export const recentOlahragaNews = [
+  {
+    id: 1,
+    slug: 'timnas-indonesia-final',
+    title: 'Timnas Indonesia Melaju ke Final',
+    image: 'https://source.unsplash.com/random/800x600?soccer',
+  },
+  {
+    id: 2,
+    slug: 'rekor-dunia-lari',
+    title: 'Rekor Dunia Lari 100 Meter Dipecahkan',
+    image: 'https://source.unsplash.com/random/800x600?athletics',
+  },
+  {
+    id: 3,
+    slug: 'nba-playoff-2024',
+    title: 'NBA Playoff 2024: Persaingan Memanas',
+    image: 'https://source.unsplash.com/random/800x600?basketball',
+  },
+];
 
 const Olahraga = () => {
   const location = useLocation();
   const [sortBy, setSortBy] = useState('latest');
   const [filterOpen, setFilterOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('all');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,11 +71,81 @@ const Olahraga = () => {
       date: "2024-05-08",
       readTime: "4 min",
       category: "Basket"
+    },
+    {
+      id: 4,
+      title: "Turnamen Bulutangkis Indonesia Open 2024",
+      excerpt: "Para pemain top dunia akan bertanding di Indonesia Open tahun ini...",
+      image: "https://source.unsplash.com/random/800x600?badminton",
+      date: "2024-05-07",
+      readTime: "3 min",
+      category: "Bulutangkis"
+    },
+    {
+      id: 5,
+      title: "Formula 1 GP Monaco: Hasil Kualifikasi",
+      excerpt: "Hasil kualifikasi GP Monaco menunjukkan persaingan ketat antar tim papan atas...",
+      image: "https://source.unsplash.com/random/800x600?formula1",
+      date: "2024-05-06",
+      readTime: "5 min",
+      category: "Formula 1"
+    },
+    {
+      id: 6,
+      title: "MotoGP Catalunya: Marquez Kembali Berjaya",
+      excerpt: "Marc Marquez menunjukkan performa dominan di sirkuit Catalunya...",
+      image: "https://source.unsplash.com/random/800x600?motogp",
+      date: "2024-05-05",
+      readTime: "4 min",
+      category: "Moto GP"
+    },
+    {
+      id: 7,
+      title: "Persiapan Olimpiade Paris 2024",
+      excerpt: "Atlet-atlet Indonesia mempersiapkan diri menghadapi Olimpiade Paris...",
+      image: "https://source.unsplash.com/random/800x600?olympics",
+      date: "2024-05-04",
+      readTime: "6 min",
+      category: "Olimpiade"
+    },
+    {
+      id: 8,
+      title: "Liga Champions: Hasil Drawing Semifinal",
+      excerpt: "Hasil drawing semifinal Liga Champions mempertemukan tim-tim unggulan...",
+      image: "https://source.unsplash.com/random/800x600?championsleague",
+      date: "2024-05-03",
+      readTime: "3 min",
+      category: "Sepak Bola"
     }
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Highlight Section for Active Category */}
+      <div className="mb-8">
+        {activeCategory !== 'all' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-xl p-6 shadow-md"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <span className={`w-3 h-3 rounded-full ${
+                subcategoriesOlahraga.find(s => s.id === activeCategory)?.color
+              }`} />
+              <h2 className="text-xl font-bold">
+                {subcategoriesOlahraga.find(s => s.id === activeCategory)?.name}
+              </h2>
+            </div>
+            <p className="text-gray-600">
+              Berita terkini seputar {
+                subcategoriesOlahraga.find(s => s.id === activeCategory)?.name.toLowerCase()
+              } dari berbagai kompetisi
+            </p>
+          </motion.div>
+        )}
+      </div>
+
       {/* Header */}
       <div className="space-y-4 mb-8">
         <motion.h1
@@ -94,46 +196,91 @@ const Olahraga = () => {
         </div>
       </div>
 
+      {/* Filter Dropdown */}
+      <AnimatePresence>
+        {filterOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mb-6 overflow-hidden"
+          >
+            <div className="bg-white p-4 rounded-lg shadow-md">
+              <h3 className="font-medium mb-3">Filter berdasarkan cabang olahraga:</h3>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setActiveCategory('all')}
+                  className={`px-3 py-1.5 rounded-lg text-sm ${
+                    activeCategory === 'all'
+                      ? 'bg-[#4A4A4A] text-white'
+                      : 'bg-gray-100 hover:bg-gray-200'
+                  }`}
+                >
+                  Semua Cabang
+                </button>
+                {subcategoriesOlahraga.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={`px-3 py-1.5 rounded-lg text-sm flex items-center gap-2 ${
+                      activeCategory === cat.id
+                        ? 'bg-[#4A4A4A] text-white'
+                        : 'bg-gray-100 hover:bg-gray-200'
+                    }`}
+                  >
+                    <span className={`w-2 h-2 rounded-full ${cat.color}`} />
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* News Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {news.map((item) => (
-          <motion.article
-            key={item.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all"
-          >
-            <Link to={`/berita/${item.id}`} className="group">
-              <div className="aspect-[16/9] overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm font-medium text-[#4A4A4A] bg-gray-100 px-2 py-1 rounded">
-                    {item.category}
-                  </span>
-                  <div className="flex items-center gap-1 text-sm text-gray-500">
-                    <Clock className="w-4 h-4" />
-                    {item.readTime}
-                  </div>
+        {news
+          .filter(item => activeCategory === 'all' || 
+            item.category.toLowerCase() === subcategoriesOlahraga.find(s => s.id === activeCategory)?.name.toLowerCase())
+          .map((item) => (
+            <motion.article
+              key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all"
+            >
+              <Link to={`/berita/${item.id}`} className="group">
+                <div className="aspect-[16/9] overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
                 </div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-[#4A4A4A] line-clamp-2">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600 line-clamp-2">
-                  {item.excerpt}
-                </p>
-                <time className="block mt-4 text-sm text-gray-500">
-                  {item.date}
-                </time>
-              </div>
-            </Link>
-          </motion.article>
-        ))}
+                <div className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm font-medium text-[#4A4A4A] bg-gray-100 px-2 py-1 rounded">
+                      {item.category}
+                    </span>
+                    <div className="flex items-center gap-1 text-sm text-gray-500">
+                      <Clock className="w-4 h-4" />
+                      {item.readTime}
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-[#4A4A4A] line-clamp-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 line-clamp-2">
+                    {item.excerpt}
+                  </p>
+                  <time className="block mt-4 text-sm text-gray-500">
+                    {item.date}
+                  </time>
+                </div>
+              </Link>
+            </motion.article>
+          ))}
       </div>
 
       {/* Pagination */}
