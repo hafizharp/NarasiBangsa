@@ -8,6 +8,12 @@ import logo from '../assets/logo-narasi.png';
 import { subcategoriesNasional, recentNasionalNews } from '../pages/nasional';
 import { subcategoriesInternasional, recentInternasionalNews } from '../pages/internasional';
 import { subcategoriesEkonomi, recentEkonomiNews } from '../pages/ekonomi';
+import { subcategoriesOlahraga, recentOlahragaNews } from '../pages/olahraga';
+import { subcategoriesTeknologi, recentTeknologiNews } from '../pages/teknologi';
+import { subcategoriesHiburan, recentHiburanNews } from '../pages/hiburan';
+import { subcategoriesGayaHidup, recentGayaHidupNews } from '../pages/gayahidup';
+import { subcategoriesOtomotif, recentOtomotifNews } from '../pages/otomotif';
+
 
 const navItems = [
   { 
@@ -28,11 +34,28 @@ const navItems = [
     hasDropdown: true,
     dropdownItems: subcategoriesEkonomi
   },
-  { label: 'Olahraga', href: routes.olahraga },
-  { label: 'Teknologi', href: routes.teknologi },
-  { label: 'Hiburan', href: routes.hiburan },
-  { label: 'Gaya Hidup', href: routes.gayaHidup },
-  { label: 'Otomotif', href: routes.otomotif },
+  { 
+    label: 'Olahraga', 
+    href: routes.olahraga,
+    hasDropdown: true,
+    dropdownItems: subcategoriesOlahraga
+  },
+  { label: 'Teknologi', 
+    href: routes.teknologi,
+    hasDropdown: true,
+    dropdownItems: subcategoriesTeknologi },
+  { label: 'Hiburan', 
+    href: routes.hiburan,
+    hasDropdown: true,
+    dropdownItems: subcategoriesHiburan },
+  { label: 'Gaya Hidup', 
+    href: routes.gayaHidup,
+    hasDropdown: true,
+    dropdownItems: subcategoriesGayaHidup },
+  { label: 'Otomotif', 
+    href: routes.otomotif,
+    hasDropdown: true,
+    dropdownItems: subcategoriesOtomotif },
 ];
 
 const Navbar = () => {
@@ -318,6 +341,320 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Subcategories Bar with News Preview for Olahraga */}
+      <AnimatePresence>
+        {hoveredItem === 'Olahraga' && (
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.2 }}
+            className="absolute w-full bg-white border-b border-gray-200 shadow-sm"
+            onMouseEnter={() => handleMouseEnter('Olahraga')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Categories */}
+              <div className="flex space-x-6 py-2">
+                <Link
+                  to={routes.olahraga}
+                  className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A]"
+                >
+                  Semua Berita
+                </Link>
+                {navItems.find(item => item.label === 'Olahraga').dropdownItems.map((subcat) => (
+                  <Link
+                    key={subcat.id}
+                    to={`${routes.olahraga}/${subcat.id}`}
+                    className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
+                    {subcat.name}
+                  </Link>
+                ))}
+              </div>
+
+              {/* News Preview */}
+              <div className="py-4">
+                <h3 className="text-sm font-bold mb-3">BERITA TERBARU</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  {recentOlahragaNews.slice(0, 3).map((news) => (
+                    <Link 
+                      key={news.id}
+                      to={`/olahraga/${news.slug}`}
+                      className="group"
+                    >
+                      <div className="aspect-video mb-2 overflow-hidden rounded-lg">
+                        <img 
+                          src={news.image} 
+                          alt={news.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <h4 className="text-sm font-medium line-clamp-2 group-hover:text-[#4A4A4A]">
+                        {news.title}
+                      </h4>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Subcategories Bar with News Preview for Teknologi */}
+      <AnimatePresence>
+        {hoveredItem === 'Teknologi' && (
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.2 }}
+            className="absolute w-full bg-white border-b border-gray-200 shadow-sm"
+            onMouseEnter={() => handleMouseEnter('Teknologi')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Categories */}
+              <div className="flex space-x-6 py-2">
+                <Link
+                  to={routes.teknologi}
+                  className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A]"
+                >
+                  Semua Berita
+                </Link>
+                {navItems.find(item => item.label === 'Teknologi').dropdownItems.map((subcat) => (
+                  <Link
+                    key={subcat.id}
+                    to={`${routes.teknologi}/${subcat.id}`}
+                    className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
+                    {subcat.name}
+                  </Link>
+                ))}
+              </div>
+
+              {/* News Preview */}
+              <div className="py-4">
+                <h3 className="text-sm font-bold mb-3">BERITA TERBARU</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  {recentTeknologiNews.slice(0, 3).map((news) => (
+                    <Link 
+                      key={news.id}
+                      to={`/teknologi/${news.slug}`}
+                      className="group"
+                    >
+                      <div className="aspect-video mb-2 overflow-hidden rounded-lg">
+                        <img 
+                          src={news.image} 
+                          alt={news.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <h4 className="text
+                        text-sm font-medium line-clamp-2 group-hover:text-[#4A4A4A]">
+                        {news.title}
+                      </h4>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Subcategories Bar with News Preview for Hiburan */}
+      <AnimatePresence>
+        {hoveredItem === 'Hiburan' && (
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.2 }}
+            className="absolute w-full bg-white border-b border-gray-200 shadow-sm"
+            onMouseEnter={() => handleMouseEnter('Hiburan')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Categories */}
+              <div className="flex space-x-6 py-2">
+                <Link
+                  to={routes.hiburan}
+                  className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A]"
+                >
+                  Semua Berita
+                </Link>
+                {navItems.find(item => item.label === 'Hiburan').dropdownItems.map((subcat) => (
+                  <Link
+                    key={subcat.id}
+                    to={`${routes.hiburan}/${subcat.id}`}
+                    className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
+                    {subcat.name}
+                  </Link>
+                ))}
+              </div>
+
+              {/* News Preview */}
+              <div className="py-4">
+                <h3 className="text-sm font-bold mb-3">BERITA TERBARU</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  {recentHiburanNews.slice(0, 3).map((news) => (
+                    <Link 
+                      key={news.id}
+                      to={`/hiburan/${news.slug}`}
+                      className="group"
+                    >
+                      <div className="aspect-video mb-2 overflow-hidden rounded-lg">
+                        <img 
+                          src={news.image} 
+                          alt={news.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <h4 className="text-sm
+                        font-medium line-clamp-2 group-hover:text-[#4A4A4A]">
+                        {news.title}
+                      </h4>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Subcategories Bar with News Preview for Gaya Hidup */}
+      <AnimatePresence>
+        {hoveredItem === 'Gaya Hidup' && (
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.2 }}
+            className="absolute w-full bg-white border-b border-gray-200 shadow-sm"
+            onMouseEnter={() => handleMouseEnter('Gaya Hidup')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Categories */}
+              <div className="flex space-x-6 py-2">
+                <Link
+                  to={routes.gayaHidup}
+                  className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A]"
+                >
+                  Semua Berita
+                </Link>
+                {navItems.find(item => item.label === 'Gaya Hidup').dropdownItems.map((subcat) => (
+                  <Link
+                    key={subcat.id}
+                    to={`${routes.gayaHidup}/${subcat.id}`}
+                    className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
+                    {subcat.name}
+                  </Link>
+                ))}
+              </div>
+
+              {/* News Preview */}
+              <div className="py-4">
+                <h3 className="text-sm font-bold mb-3">BERITA TERBARU</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  {recentGayaHidupNews.slice(0, 3).map((news) => (
+                    <Link 
+                      key={news.id}
+                      to={`/gayahidup/${news.slug}`}
+                      className="group"
+                    >
+                      <div className="aspect-video mb-2 overflow-hidden rounded-lg">
+                        <img 
+                          src={news.image} 
+                          alt={news.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <h4 className="text-sm font-medium line-clamp-2 group-hover:text-[#4A4A4A]">
+                        {news.title}
+                      </h4>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Subcategories Bar with News Preview for Otomotif */}
+      <AnimatePresence>
+        {hoveredItem === 'Otomotif' && (
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.2 }}
+            className="absolute w-full bg-white border-b border-gray-200 shadow-sm"
+            onMouseEnter={() => handleMouseEnter('Otomotif')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Categories */}
+              <div className="flex space-x-6 py-2">
+                <Link
+                  to={routes.otomotif}
+                  className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A]"
+                >
+                  Semua Berita
+                </Link>
+                {navItems.find(item => item.label === 'Otomotif').dropdownItems.map((subcat) => (
+                  <Link
+                    key={subcat.id}
+                    to={`${routes.otomotif}/${subcat.id}`}
+                    className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
+                    {subcat.name}
+                  </Link>
+                ))}
+              </div>
+
+              {/* News Preview */}
+              <div className="py-4">
+                <h3 className="text-sm font-bold mb-3">BERITA TERBARU</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  {recentOtomotifNews.slice(0, 3).map((news) => (
+                    <Link 
+                      key={news.id}
+                      to={`/otomotif/${news.slug}`}
+                      className="group"
+                    >
+                      <div className="aspect-video mb-2 overflow-hidden rounded-lg">
+                        <img 
+                          src={news.image} 
+                          alt={news.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <h4 className="text-sm
+                        font-medium line-clamp-2 group-hover:text-[#4A4A4A]">
+                        {news.title}
+                      </h4>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
       {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
