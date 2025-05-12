@@ -1,9 +1,15 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import Button from "../components/ui/button";
 
 const NotFound = () => {
+  // Scroll ke atas saat halaman dimuat
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-[calc(100vh-5rem)] pt-20 sm:pt-24 flex items-center justify-center bg-background">
       <div className="container mx-auto px-4 sm:px-6">
