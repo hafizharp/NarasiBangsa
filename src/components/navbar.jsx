@@ -2,52 +2,37 @@ import { useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import routes from '../config/routes';
-import logo from '../assets/logo-narasi.png'; // Make sure to add your logo to assets folder
+import logo from '../assets/logo-narasi.png';
 
-const subcategories = [
-  { id: 'politik', name: 'Politik', color: 'bg-blue-500' },
-  { id: 'hukum', name: 'Hukum & Kriminal', color: 'bg-red-500' },
-  { id: 'peristiwa', name: 'Peristiwa', color: 'bg-green-500' },
-  { id: 'pemilu', name: 'Pemilu 2024', color: 'bg-purple-500' },
-  { id: 'pemerintahan', name: 'Pemerintahan', color: 'bg-orange-500' }
-];
+// Import subcategories and recent news from page components
+import { subcategoriesNasional, recentNasionalNews } from '../pages/nasional';
+import { subcategoriesInternasional, recentInternasionalNews } from '../pages/internasional';
+import { subcategoriesEkonomi, recentEkonomiNews } from '../pages/ekonomi';
 
 const navItems = [
   { 
     label: 'Nasional', 
     href: routes.nasional,
     hasDropdown: true,
-    dropdownItems: subcategories
+    dropdownItems: subcategoriesNasional
   },
-  { label: 'Internasional', href: routes.internasional },
-  { label: 'Ekonomi', href: routes.ekonomi },
+  { 
+    label: 'Internasional', 
+    href: routes.internasional,
+    hasDropdown: true,
+    dropdownItems: subcategoriesInternasional
+  },
+  { 
+    label: 'Ekonomi', 
+    href: routes.ekonomi,
+    hasDropdown: true,
+    dropdownItems: subcategoriesEkonomi
+  },
   { label: 'Olahraga', href: routes.olahraga },
   { label: 'Teknologi', href: routes.teknologi },
   { label: 'Hiburan', href: routes.hiburan },
   { label: 'Gaya Hidup', href: routes.gayaHidup },
   { label: 'Otomotif', href: routes.otomotif },
-];
-
-// Add after the navItems array
-const recentNews = [
-  {
-    id: 1,
-    slug: 'kenangan-haru-menag-nasaruddin',
-    title: 'Kenangan Haru Menag Nasaruddin Bersama Fransiskus',
-    image: 'https://example.com/image1.jpg', // Replace with actual image
-  },
-  {
-    id: 2,
-    slug: 'istana-soal-usul-soeharto',
-    title: 'Istana soal Usul Soeharto Pahlawan Nasional: Wajar Dapat Penghormatan',
-    image: 'https://example.com/image2.jpg', // Replace with actual image
-  },
-  {
-    id: 3,
-    slug: 'ruu-kejaksaan-polri',
-    title: 'Mensesneg Sebut RUU Kejaksaan dan Polri Bakal Dibahas Tahun Ini',
-    image: 'https://example.com/image3.jpg', // Replace with actual image
-  },
 ];
 
 const Navbar = () => {
@@ -169,7 +154,7 @@ const Navbar = () => {
                 >
                   Semua Berita
                 </Link>
-                {subcategories.map((subcat) => (
+                {navItems.find(item => item.label === 'Nasional').dropdownItems.map((subcat) => (
                   <Link
                     key={subcat.id}
                     to={`${routes.nasional}/${subcat.id}`}
@@ -185,7 +170,7 @@ const Navbar = () => {
               <div className="py-4">
                 <h3 className="text-sm font-bold mb-3">BERITA TERBARU</h3>
                 <div className="grid grid-cols-3 gap-4">
-                  {recentNews.slice(0, 3).map((news) => (
+                  {recentNasionalNews.slice(0, 3).map((news) => (
                     <Link 
                       key={news.id}
                       to={`/nasional/${news.slug}`}
@@ -210,6 +195,129 @@ const Navbar = () => {
         )}
       </AnimatePresence>
 
+      {/* Subcategories Bar with News Preview for Internasional */}
+      <AnimatePresence>
+        {hoveredItem === 'Internasional' && (
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.2 }}
+            className="absolute w-full bg-white border-b border-gray-200 shadow-sm"
+            onMouseEnter={() => handleMouseEnter('Internasional')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Categories */}
+              <div className="flex space-x-6 py-2">
+                <Link
+                  to={routes.internasional}
+                  className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A]"
+                >
+                  Semua Berita
+                </Link>
+                {navItems.find(item => item.label === 'Internasional').dropdownItems.map((subcat) => (
+                  <Link
+                    key={subcat.id}
+                    to={`${routes.internasional}/${subcat.id}`}
+                    className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
+                    {subcat.name}
+                  </Link>
+                ))}
+              </div>
+
+              {/* News Preview */}
+              <div className="py-4">
+                <h3 className="text-sm font-bold mb-3">BERITA TERBARU</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  {recentInternasionalNews.slice(0, 3).map((news) => (
+                    <Link 
+                      key={news.id}
+                      to={`/internasional/${news.slug}`}
+                      className="group"
+                    >
+                      <div className="aspect-video mb-2 overflow-hidden rounded-lg">
+                        <img 
+                          src={news.image} 
+                          alt={news.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <h4 className="text-sm font-medium line-clamp-2 group-hover:text-[#4A4A4A]">
+                        {news.title}
+                      </h4>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Subcategories Bar with News Preview for Ekonomi */}
+      <AnimatePresence>
+        {hoveredItem === 'Ekonomi' && (
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.2 }}
+            className="absolute w-full bg-white border-b border-gray-200 shadow-sm"
+            onMouseEnter={() => handleMouseEnter('Ekonomi')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Categories */}
+              <div className="flex space-x-6 py-2">
+                <Link
+                  to={routes.ekonomi}
+                  className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A]"
+                >
+                  Semua Berita
+                </Link>
+                {navItems.find(item => item.label === 'Ekonomi').dropdownItems.map((subcat) => (
+                  <Link
+                    key={subcat.id}
+                    to={`${routes.ekonomi}/${subcat.id}`}
+                    className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
+                    {subcat.name}
+                  </Link>
+                ))}
+              </div>
+
+              {/* News Preview */}
+              <div className="py-4">
+                <h3 className="text-sm font-bold mb-3">BERITA TERBARU</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  {recentEkonomiNews.slice(0, 3).map((news) => (
+                    <Link 
+                      key={news.id}
+                      to={`/ekonomi/${news.slug}`}
+                      className="group"
+                    >
+                      <div className="aspect-video mb-2 overflow-hidden rounded-lg">
+                        <img 
+                          src={news.image} 
+                          alt={news.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <h4 className="text-sm font-medium line-clamp-2 group-hover:text-[#4A4A4A]">
+                        {news.title}
+                      </h4>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
