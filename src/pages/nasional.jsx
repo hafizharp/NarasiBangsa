@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Filter, TrendingUp, ChevronDown } from 'lucide-react';
 
@@ -15,6 +15,11 @@ const Nasional = () => {
   const [sortBy, setSortBy] = useState('latest');
   const [filterOpen, setFilterOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   // Mock data - will be replaced with API call
   const news = [
@@ -46,7 +51,7 @@ const Nasional = () => {
       category: "Politik"
     },
     {
-      id: 1,
+      id: 4,
       title: "Perkembangan Terkini Pemilu 2024",
       excerpt: "Update hasil perhitungan suara dan dinamika politik terbaru...",
       image: "https://source.unsplash.com/random/800x600?election",
@@ -55,7 +60,7 @@ const Nasional = () => {
       category: "Politik"
     },
     {
-      id: 1,
+      id: 5,
       title: "Perkembangan Terkini Pemilu 2024",
       excerpt: "Update hasil perhitungan suara dan dinamika politik terbaru...",
       image: "https://source.unsplash.com/random/800x600?election",
@@ -64,7 +69,7 @@ const Nasional = () => {
       category: "Politik"
     },
     {
-      id: 1,
+      id: 6,
       title: "Perkembangan Terkini Pemilu 2024",
       excerpt: "Update hasil perhitungan suara dan dinamika politik terbaru...",
       image: "https://source.unsplash.com/random/800x600?election",
@@ -73,15 +78,14 @@ const Nasional = () => {
       category: "Politik"
     },
     {
-      id: 1,
+      id: 7,
       title: "Perkembangan Terkini Pemilu 2024",
       excerpt: "Update hasil perhitungan suara dan dinamika politik terbaru...",
       image: "https://source.unsplash.com/random/800x600?election",
       date: "2024-04-21",
       readTime: "5 min",
       category: "Politik"
-    },
-    // Add more mock items...
+    }
   ];
 
   return (

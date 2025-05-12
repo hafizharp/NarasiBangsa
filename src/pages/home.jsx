@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { TrendingUp, Clock, ChevronRight } from 'lucide-react';
 import { mockNews } from '../mocks/newsData';
@@ -52,6 +52,11 @@ const CategoryPreview = ({ title, route, news }) => (
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('terbaru');
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]); // Scroll ke atas saat path berubah
 
   return (
     <div className="space-y-12">
@@ -143,7 +148,7 @@ const Home = () => {
         news={mockNews.ekonomi}
       />
 
-      {/* Add other category previews as needed */}
+      {/* Tambah kategori lainnya jika perlu */}
     </div>
   );
 };
