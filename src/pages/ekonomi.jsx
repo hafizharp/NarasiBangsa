@@ -35,14 +35,24 @@ export const recentEkonomiNews = [
 ];
 
 const Ekonomi = () => {
+  const location = useLocation();
   const [sortBy, setSortBy] = useState('latest');
   const [filterOpen, setFilterOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
-  const location = useLocation();
-
+  
   useEffect(() => {
+    // Extract category from URL query parameters
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+    
+    if (categoryParam) {
+      setActiveCategory(categoryParam);
+    } else {
+      setActiveCategory('all');
+    }
+    
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, [location.search, location.pathname]);
 
   // Mock data - will be replaced with API call
   const news = [

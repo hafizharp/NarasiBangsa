@@ -18,6 +18,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/nasional" element={<Nasional />} />
+        <Route path="/nasional/:subcategory" element={<Nasional />} />
+        <Route path="/nasional/page/:page" element={<Nasional />} />
+        <Route path="/nasional/:subcategory/page/:page" element={<Nasional />} />
         <Route path="/internasional" element={<Internasional />} />
         <Route path="/ekonomi" element={<Ekonomi />} />
         <Route path="/olahraga" element={<Olahraga />} />

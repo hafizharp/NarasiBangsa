@@ -39,10 +39,20 @@ const Olahraga = () => {
   const [sortBy, setSortBy] = useState('latest');
   const [filterOpen, setFilterOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
-
+  
   useEffect(() => {
+    // Extract category from URL query parameters
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+    
+    if (categoryParam) {
+      setActiveCategory(categoryParam);
+    } else {
+      setActiveCategory('all');
+    }
+    
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, [location.search, location.pathname]);
 
   const news = [
     {
