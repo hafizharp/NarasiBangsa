@@ -180,7 +180,7 @@ const Navbar = () => {
                 {navItems.find(item => item.label === 'Nasional').dropdownItems.map((subcat) => (
                   <Link
                     key={subcat.id}
-                    to={`${routes.nasional}/${subcat.id}`}
+                    to={`${routes.nasional}?category=${subcat.id}`}
                     className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
@@ -242,7 +242,7 @@ const Navbar = () => {
                 {navItems.find(item => item.label === 'Internasional').dropdownItems.map((subcat) => (
                   <Link
                     key={subcat.id}
-                    to={`${routes.internasional}/${subcat.id}`}
+                    to={`${routes.internasional}?category=${subcat.id}`}
                     className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
@@ -304,7 +304,7 @@ const Navbar = () => {
                 {navItems.find(item => item.label === 'Ekonomi').dropdownItems.map((subcat) => (
                   <Link
                     key={subcat.id}
-                    to={`${routes.ekonomi}/${subcat.id}`}
+                    to={`${routes.ekonomi}?category=${subcat.id}`}
                     className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
@@ -366,7 +366,7 @@ const Navbar = () => {
                 {navItems.find(item => item.label === 'Olahraga').dropdownItems.map((subcat) => (
                   <Link
                     key={subcat.id}
-                    to={`${routes.olahraga}/${subcat.id}`}
+                    to={`${routes.olahraga}?category=${subcat.id}`}
                     className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
@@ -428,7 +428,7 @@ const Navbar = () => {
                 {navItems.find(item => item.label === 'Teknologi').dropdownItems.map((subcat) => (
                   <Link
                     key={subcat.id}
-                    to={`${routes.teknologi}/${subcat.id}`}
+                    to={`${routes.teknologi}?category=${subcat.id}`}
                     className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
@@ -491,7 +491,7 @@ const Navbar = () => {
                 {navItems.find(item => item.label === 'Hiburan').dropdownItems.map((subcat) => (
                   <Link
                     key={subcat.id}
-                    to={`${routes.hiburan}/${subcat.id}`}
+                    to={`${routes.hiburan}?category=${subcat.id}`}
                     className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
@@ -554,7 +554,7 @@ const Navbar = () => {
                 {navItems.find(item => item.label === 'Gaya Hidup').dropdownItems.map((subcat) => (
                   <Link
                     key={subcat.id}
-                    to={`${routes.gayaHidup}/${subcat.id}`}
+                    to={`${routes.gayaHidup}?category=${subcat.id}`}
                     className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />
@@ -616,7 +616,7 @@ const Navbar = () => {
                 {navItems.find(item => item.label === 'Otomotif').dropdownItems.map((subcat) => (
                   <Link
                     key={subcat.id}
-                    to={`${routes.otomotif}/${subcat.id}`}
+                    to={`${routes.otomotif}?category=${subcat.id}`}
                     className="text-[13px] font-medium text-gray-600 hover:text-[#4A4A4A] flex items-center"
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${subcat.color} mr-2`} />

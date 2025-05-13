@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, TrendingUp, Filter } from 'lucide-react';
@@ -36,13 +36,23 @@ export const recentGayaHidupNews = [
 
 const GayaHidup = () => {
   const location = useLocation();
-  const [activeCategory, setActiveCategory] = React.useState('all');
-  const [filterOpen, setFilterOpen] = React.useState(false);
-  const [sortBy, setSortBy] = React.useState('latest');
-
+  const [sortBy, setSortBy] = useState('latest');
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('all');
+  
   useEffect(() => {
+    // Extract category from URL query parameters
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+    
+    if (categoryParam) {
+      setActiveCategory(categoryParam);
+    } else {
+      setActiveCategory('all');
+    }
+    
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, [location.search, location.pathname]);
 
   const news = [
     {
